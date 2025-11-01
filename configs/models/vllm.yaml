@@ -1,0 +1,144 @@
+# ==================================
+# Configuration Templates (YAML Anchors)
+# ==================================
+x-templates:
+  # Default client settings
+  default_client: &default_client
+    gpu_memory_utilization: 0.90
+    dtype: "auto"
+    enforce_eager: false
+    swap_space: 16
+    max_num_seqs: 256
+    trust_remote_code: true
+    max_model_len: 32768
+  
+  # --- Sampling Settings ---
+  default_sampling: &default_sampling
+    n: 1
+    max_tokens: 32768
+    seed: 777
+    skip_special_tokens: false
+
+  # Qwen3 Reasoning
+  reasoning_sampling: &reasoning_sampling
+    <<: *default_sampling
+    temperature: 0.6
+    top_p: 0.95
+    top_k: 20
+    repetition_penalty: 1.1
+
+  # Qwen3 Instruct
+  instruct_sampling: &instruct_sampling
+    <<: *default_sampling
+    temperature: 0.2
+    top_p: 0.8
+    top_k: 20
+    repetition_penalty: 1.1
+  
+  # QwQ Reasoning
+  qwq_sampling: &qwq_sampling
+    <<: *default_sampling
+    temperature: 0.6
+    top_p: 0.95
+    top_k: 40
+    repetition_penalty: 1.0
+
+  # --- Reasoning Config ---
+  # For hybrid models (can toggle thinking mode via chat_template_kwargs)
+  reasoning_enabled: &reasoning_enabled
+    chat_template_kwargs:
+      enable_thinking: true
+    reasoning_parser:
+      enabled: true
+      start_tag: '<think>'
+      end_tag: '</think>'
+
+  reasoning_disabled: &reasoning_disabled
+    chat_template_kwargs:
+      enable_thinking: false
+    reasoning_parser:
+      enabled: false
+  
+  # For dedicated models (thinking/instruct specialized, no chat_template_kwargs needed)
+  reasoning_supported: &reasoning_supported
+    reasoning_parser:
+      enabled: true
+      start_tag: '<think>'
+      end_tag: '</think>'
+  
+  reasoning_not_supported: &reasoning_not_supported
+    reasoning_parser:
+      enabled: false
+
+# ==================================
+# Qwen Models
+# ==================================
+
+### Qwen 3 Series
+qwen3-8b-local:
+  client:
+    model: "Qwen/Qwen3-8B"
+    <<: *default_client
+  sampling: *reasoning_sampling
+  <<: *reasoning_enabled
+
+qwen3-8b-no-think-local:
+  client:
+    model: "Qwen/Qwen3-8B"
+    <<: *default_client
+  sampling: *instruct_sampling
+  <<: *reasoning_disabled
+
+qwen3-14b-local:
+  client:
+    model: "Qwen/Qwen3-14B"
+    <<: *default_client
+  sampling: *reasoning_sampling
+  <<: *reasoning_enabled
+
+qwen3-14b-no-think-local:
+  client:
+    model: "Qwen/Qwen3-14B"
+    <<: *default_client
+  sampling: *instruct_sampling
+  <<: *reasoning_disabled
+
+qwen3-32b-local:
+  client:
+    model: "Qwen/Qwen3-32B"
+    <<: *default_client
+  sampling: *reasoning_sampling
+  <<: *reasoning_enabled
+
+qwen3-32b-no-think-local:
+  client:
+    model: "Qwen/Qwen3-32B"
+    <<: *default_client
+  sampling: *instruct_sampling
+  <<: *reasoning_disabled
+
+qwen3-30b-a3b-thinking-2507-local:
+  client:
+    model: "Qwen/Qwen3-30B-A3B-Thinking-2507"
+    <<: *default_client
+  sampling: *reasoning_sampling
+  <<: *reasoning_supported
+
+### QwQ Series 
+qwq-32b-local:
+  client:
+    model: "Qwen/QwQ-32B"
+    <<: *default_client
+  sampling: *qwq_sampling
+  <<: *reasoning_supported
+
+# ==================================
+# Fine-tuned Model
+# ==================================
+
+preferred-medrect-32b:
+  client:
+    model: "pfnet/Preferred-MedRECT-32B"
+    <<: *default_client
+  sampling: *instruct_sampling
+  <<: *reasoning_disabled

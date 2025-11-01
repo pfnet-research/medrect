@@ -1,0 +1,13 @@
+task: medec_screening
+
+models:
+  - gemini-2_5-pro
+
+datasets:
+  - medrect_ja_step3
+
+templates:
+  - detailed_explanation_ja
+  - with_examples_ja
+
+output_dir: results

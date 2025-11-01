@@ -1,0 +1,158 @@
+# ==================================
+# Configuration Templates (YAML Anchors)
+# ==================================
+x-templates:
+  # Standard OpenRouter client settings
+  openrouter_client: &openrouter_client
+    api_key_env: "OPENROUTER_API_KEY"
+    base_url: "https://openrouter.ai/api/v1"
+    max_retries: 0
+
+  # Local vLLM server client settings
+  vllm_server_client: &vllm_server_client
+    api_key_env: "DUMMY_API_KEY"  # vLLM server doesn't require real API key
+    base_url: "http://localhost:8000/v1"
+    max_retries: 0
+
+# ==================================
+# Direct API Models
+# ==================================
+
+# PFN (Preferred Networks) Models
+plamo-2_0-prime:
+  client:
+    api_key_env: "PLAMO_API_KEY"
+    base_url: "https://platform.preferredai.jp/api/completion/v1"
+    max_retries: 0
+  request:
+    model: "plamo-2.0-prime"
+
+# ==================================
+# OpenRouter Models
+# ==================================
+
+### OpenAI Models on OpenRouter
+gpt-5-medium:
+  client: *openrouter_client
+  request:
+    model: "openai/gpt-5"
+    extra_body:
+      reasoning:
+        effort: "medium"
+
+o3-medium:
+  client: *openrouter_client
+  request:
+    model: "openai/o3"
+    extra_body:
+      reasoning:
+        effort: "medium"
+
+gpt-4_1:
+  client: *openrouter_client
+  request:
+    model: "openai/gpt-4.1"
+
+### Anthropic Models on OpenRouter
+claude-sonnet-4-thinking:
+  client: *openrouter_client
+  request:
+    model: "anthropic/claude-sonnet-4"
+    extra_body:
+      reasoning:
+        enabled: true
+
+### Google Models on OpenRouter
+gemini-2_5-pro:
+  client: *openrouter_client
+  request:
+    model: "google/gemini-2.5-pro"
+
+### Qwen Models on OpenRouter
+qwen3-235b-a22b-thinking-2507:
+  client: *openrouter_client
+  request:
+    model: "qwen/qwen3-235b-a22b-thinking-2507"
+    extra_body:
+      provider:
+        order: ["alibaba", "novita/fp8"]
+        allow_fallbacks: false
+
+### DeepSeek Models on OpenRouter
+deepseek-v3-0324:
+  client: *openrouter_client
+  request:
+    model: "deepseek/deepseek-chat-v3-0324"
+    extra_body:
+      provider:
+        order: ["nebius/fp8", "novita"]
+        allow_fallbacks: false
+
+deepseek-r1-0528:
+  client: *openrouter_client
+  request:
+    model: "deepseek/deepseek-r1-0528"
+    extra_body:
+      provider:
+        order: ["novita/fp8"]
+        allow_fallbacks: false
+
+# ==================================
+# Local vLLM Server Models (gpt-oss)
+# ==================================
+
+# Unsloth GPT-OSS 20B reasoning mode via vLLM server
+unsloth-gpt-oss-20b-low:
+  client: *vllm_server_client
+  request:
+    model: "unsloth/gpt-oss-20b"
+    extra_body:
+      reasoning_effort: "low"
+
+# Unsloth GPT-OSS 20B medium reasoning mode via vLLM server
+unsloth-gpt-oss-20b-medium:
+  client: *vllm_server_client
+  request:
+    model: "unsloth/gpt-oss-20b"
+    extra_body:
+      reasoning_effort: "medium"
+
+# Unsloth GPT-OSS 20B high reasoning mode via vLLM server
+unsloth-gpt-oss-20b-high:
+  client: *vllm_server_client
+  request:
+    model: "unsloth/gpt-oss-20b"
+    extra_body:
+      reasoning_effort: "high"
+
+# Unsloth GPT-OSS 120B no-think mode via vLLM server
+unsloth-gpt-oss-120b-no-think:
+  client: *vllm_server_client
+  request:
+    model: "unsloth/gpt-oss-120b"
+    extra_body:
+      reasoning_effort: "low"
+
+# Unsloth GPT-OSS 120B reasoning mode via vLLM server
+unsloth-gpt-oss-120b-low:
+  client: *vllm_server_client
+  request:
+    model: "unsloth/gpt-oss-120b"
+    extra_body:
+      reasoning_effort: "low"
+
+# Unsloth GPT-OSS 120B medium reasoning mode via vLLM server
+unsloth-gpt-oss-120b-medium:
+  client: *vllm_server_client
+  request:
+    model: "unsloth/gpt-oss-120b"
+    extra_body:
+      reasoning_effort: "medium"
+
+# Unsloth GPT-OSS 120B high reasoning mode via vLLM server
+unsloth-gpt-oss-120b-high:
+  client: *vllm_server_client
+  request:
+    model: "unsloth/gpt-oss-120b"
+    extra_body:
+      reasoning_effort: "high"

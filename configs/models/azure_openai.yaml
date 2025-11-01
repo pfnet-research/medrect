@@ -1,0 +1,74 @@
+# Azure OpenAI Models
+# ref. https://learn.microsoft.com/ja-jp/azure/ai-foundry/openai/how-to/reasoning
+#
+# The params below will be used in src/llm_eval/models/azure_openai_model.py.
+#
+# REQUIRED ENVIRONMENT VARIABLES:
+# Please set the following environment variables in your .env file:
+#   - AZURE_OPENAI_API_KEY: Your Azure OpenAI API key
+#   - AZURE_OPENAI_ENDPOINT: Your Azure OpenAI endpoint URL (e.g., https://your-resource-name.openai.azure.com/)
+#
+# NOTE: Do NOT replace the values below (e.g., "AZURE_OPENAI_API_KEY").
+# These are environment variable names that the source code will read from.
+
+# YAML Anchors
+x-templates:
+  # Azure OpenAI client settings
+  azure_openai_client: &azure_openai_client
+    api_key_env: "AZURE_OPENAI_API_KEY"
+    azure_endpoint_env: "AZURE_OPENAI_ENDPOINT"
+    api_version: "2025-04-01-preview"
+
+
+azure_o3_low:
+  client: *azure_openai_client
+  request:
+    model: "o3"
+    reasoning:
+      effort: "low"
+      summary: "detailed" # auto, concise, or detailed (currently only supported with o4-mini and o3)
+
+azure_o3_medium:
+  client: *azure_openai_client
+  request:
+    model: "o3"
+    reasoning:
+      effort: "medium"
+      summary: "detailed"
+
+azure_o3_high:
+  client: *azure_openai_client
+  request:
+    model: "o3"
+    reasoning:
+      effort: "high"
+      summary: "detailed"
+
+# GPT-5 Models
+azure_gpt5_minimal:
+  client: *azure_openai_client
+  request:
+    model: "gpt-5"
+    reasoning:
+      effort: "minimal"
+
+azure_gpt5_low:
+  client: *azure_openai_client
+  request:
+    model: "gpt-5"
+    reasoning:
+      effort: "low"
+
+azure_gpt5_medium:
+  client: *azure_openai_client
+  request:
+    model: "gpt-5"
+    reasoning:
+      effort: "medium"
+
+azure_gpt5_high:
+  client: *azure_openai_client
+  request:
+    model: "gpt-5"
+    reasoning:
+      effort: "high"

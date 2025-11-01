@@ -1,0 +1,52 @@
+# Component configuration
+components:
+  sample_class: "medec"
+  template_class: "medec"
+
+# Data configuration for both English and Japanese MEDEC datasets
+data:
+  dir: "data"
+  datasets:
+    medrect_ja:
+      file: "medrect/medrect-ja-step4-accepted.json"
+      loader: "medecjson"
+    medrect_en:
+      file: "medrect/medrect-en-accepted.json"
+      loader: "medecjson"
+    medec_test:
+      file: "medec/medec-test.json"
+      loader: "medecjson"
+
+# Templates auto-discovered by ComponentFactory
+
+# Metrics configuration with automatic language detection
+metrics:
+  error_detection:
+    class: "errordetection"
+    parser: "errordetection"
+  sentence_extraction:
+    class: "sentenceextraction" 
+    parser: "sentenceextraction"
+  error_correction:
+    class: "errorcorrection"
+    parser: "errorcorrection"
+    tokenization_method: "auto"
+  error_correction_full:
+    class: "errorcorrection"
+    parser: "errorcorrection"
+    tokenization_method: "auto"
+    use_bertscore: true
+    bertscore_model: "microsoft/deberta-xlarge-mnli"
+    use_bleurt: true
+    bleurt_checkpoint: "/path/to/bleurt/BLEURT-20"  # Set your BLEURT checkpoint path here
+    device: "cuda"
+    batch_size: 16
+
+# All defaults grouped together
+defaults:
+  template: "0_shot_en"
+  dataset: "medrect_en"
+  metrics:
+    - "error_detection"
+    - "sentence_extraction"
+    - "error_correction_full"

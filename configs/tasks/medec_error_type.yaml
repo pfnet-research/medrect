@@ -1,0 +1,28 @@
+# Component configuration
+components:
+  sample_class: "medec"
+  template_class: "medec_error_type"
+
+# Data configuration for MEDEC datasets
+data:
+  dir: "data"
+  datasets:
+    medrect_en:
+      file: "medrect/medrect-en-accepted.json"
+      loader: "medecjson"
+
+# Templates auto-discovered by ComponentFactory
+# Available templates: error_type_classification_ja, error_type_classification_en
+
+# Metrics configuration for error type classification
+metrics:
+  error_type_classification:
+    class: "errortypemetrics"
+    parser: "errortype"
+
+# All defaults grouped together
+defaults:
+  template: "error_type_classification_en"
+  dataset: "medec_test"
+  metrics:
+    - "error_type_classification"

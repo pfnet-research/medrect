@@ -1,0 +1,13 @@
+task: jmle
+
+models:
+  - deepseek-r1-0528
+  - qwen3-235b-a22b-thinking-2507
+
+datasets:
+  - case_all
+
+templates:
+  - simple_choice_synthesis
+
+output_dir: results

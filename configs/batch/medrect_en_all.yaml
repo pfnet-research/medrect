@@ -1,0 +1,28 @@
+task: medec
+
+models:
+  - gpt-5-medium
+  - o3-medium
+  - claude-sonnet-4-thinking
+  - deepseek-r1-0528
+  - unsloth-gpt-oss-20b-low
+  - unsloth-gpt-oss-20b-medium
+  - unsloth-gpt-oss-20b-high
+  - unsloth-gpt-oss-120b-low
+  - unsloth-gpt-oss-120b-medium
+  - unsloth-gpt-oss-120b-high
+  - preferred-medrect-32b
+  - qwen3-32b-local
+
+  - gpt-4_1
+  - deepseek-v3-0324
+  - qwen3-32b-no-think-local
+
+datasets:
+  - medec_test
+  - medrect_en
+
+templates:
+  - 0_shot_en
+
+output_dir: results

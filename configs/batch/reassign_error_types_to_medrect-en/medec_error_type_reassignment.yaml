@@ -1,0 +1,12 @@
+task: medec_error_type
+
+models:
+  - gemini-2_5-pro
+
+datasets:
+  - medec_test_error_only
+
+templates:
+  - error_type_classification_en
+
+output_dir: results

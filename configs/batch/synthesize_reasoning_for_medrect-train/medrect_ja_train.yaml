@@ -1,0 +1,12 @@
+task: medec
+
+models:
+  - deepseek-r1-0528
+
+datasets:
+  - medrect_ja_train_raw
+
+templates:
+  - 0_shot_reasoning_ja
+
+output_dir: results

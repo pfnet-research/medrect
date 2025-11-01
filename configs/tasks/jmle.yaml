@@ -1,0 +1,25 @@
+# JMLE Task Configuration (Japanese Medical License Examination - Case Question Synthesis)
+
+# Component configuration
+components:
+  sample_class: "jmle"
+  template_class: "jmle"
+
+# Data configuration for JMLE datasets
+data:
+  dir: "data/jmle"
+  datasets:
+    case_all:
+      file: "jmle-2018-2025-source-questions.json"
+      loader: "jmle"
+
+# Templates auto-discovered by ComponentFactory
+
+# Metrics configuration (currently empty for inference-only tasks)
+metrics: {}
+
+# All defaults grouped together
+defaults:
+  template: "simple_choice_synthesis"
+  dataset: "case_all"
+  metrics: []

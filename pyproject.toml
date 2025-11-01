@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "medrect"
+version = "1.0.0"
+description = "MedRECT: A Medical Reasoning Benchmark for Error Correction in Clinical Texts"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "bert-score>=0.3.13",
+    "bleurt>=0.0.2",
+    "loguru>=0.7.3",
+    "mecab-python3>=1.0.8",
+    "openai>=1.100.2",
+    "pandas>=1.5.0",
+    "plotly>=5.18.0",
+    "pyyaml>=6.0.2",
+    "rouge-score>=0.1.2",
+    "streamlit>=1.32.0",
+    "tenacity>=9.1.2",
+    "unidic-lite>=1.0.8",
+]
+
+[dependency-groups]
+vllm = [
+    "bitsandbytes>=0.47.0",
+    "torch>=2.7.1",
+    "vllm>=0.10.1",
+    "flashinfer-python>=0.3.1",
+]
+
+[project.scripts]
+batch = "llm_eval.run_batch:main"
+batch-retry = "llm_eval.run_batch_with_retry:main"
+viewer = "viewer.app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/llm_eval", "src/viewer"]
+
+[tool.uv.sources]
+bleurt = { git = "https://github.com/google-research/bleurt.git" }

@@ -1,0 +1,12 @@
+task: medec
+
+models:
+  - deepseek-r1-0528
+
+datasets:
+  - medec_train_and_val
+
+templates:
+  - 0_shot_reasoning_cheat_en
+
+output_dir: results

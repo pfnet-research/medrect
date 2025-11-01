@@ -1,0 +1,81 @@
+# ==================================
+# vLLM LoRA Models Configuration
+# Fine-tuned models with LoRA adapters
+# ==================================
+
+# Template configurations
+x-templates:
+  # Default client settings for LoRA models
+  default_lora_client: &default_lora_client
+    enable_lora: true
+    max_lora_rank: 64
+    gpu_memory_utilization: 0.90
+    dtype: "auto"
+    enforce_eager: false
+    swap_space: 16
+    max_num_seqs: 64
+    trust_remote_code: true
+    max_model_len: 32768
+  
+  # Base sampling settings
+  default_sampling: &default_sampling
+    n: 1
+    max_tokens: 32768
+    seed: 777
+    skip_special_tokens: false
+
+  # Fine-tuned models sampling (based on instruct_sampling)
+  instruct_sampling: &instruct_sampling
+    <<: *default_sampling
+    temperature: 0.2
+    top_p: 0.8
+    top_k: 20
+    repetition_penalty: 1.1
+
+  # Fine-tuned reasoning sampling
+  reasoning_sampling: &reasoning_sampling
+    <<: *default_sampling
+    temperature: 0.6
+    top_p: 0.95
+    top_k: 20
+    repetition_penalty: 1.1
+
+  # Reasoning enabled for fine-tuned models
+  reasoning_enabled: &reasoning_enabled
+    chat_template_kwargs:
+      enable_thinking: true
+    reasoning_parser:
+      enabled: true
+      start_tag: '<think>'
+      end_tag: '</think>'
+
+  # Reasoning disabled (fine-tuned models give direct answers)
+  reasoning_disabled: &reasoning_disabled
+    chat_template_kwargs:
+      enable_thinking: false
+    reasoning_parser:
+      enabled: false
+
+  # Full precision reasoning model configuration
+  full_precision_reasoning: &full_precision_reasoning
+    client:
+      model: "unsloth/Qwen3-32B"
+      <<: *default_lora_client
+    sampling: *reasoning_sampling
+    <<: *reasoning_enabled
+
+  # 4bit reasoning model configuration
+  quantized_reasoning: &quantized_reasoning
+    client:
+      model: "unsloth/Qwen3-32B-unsloth-bnb-4bit"
+      <<: *default_lora_client
+    sampling: *reasoning_sampling
+    <<: *reasoning_enabled
+
+# ==================================
+# Fine-tuned
+# ==================================
+
+# your-lora-model:
+#   lora_adapter_path: "/path/to/lora_adapters"
+#   <<: *full_precision_reasoning

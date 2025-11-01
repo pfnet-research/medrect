@@ -1,0 +1,13 @@
+task: medec_screening
+
+models:
+  - gemini-2_5-pro
+
+datasets:
+  - medec_test
+
+templates:
+  - detailed_explanation_en
+  - with_examples_en
+
+output_dir: results

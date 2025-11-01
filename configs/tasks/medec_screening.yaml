@@ -1,0 +1,33 @@
+# MEDEC Screening Task Configuration (Quality Assessment)
+
+# Component configuration
+components:
+  sample_class: "medec"
+  template_class: "medec_screening"
+
+# Data configuration for JMEDEC datasets
+data:
+  dir: "data"
+  datasets:
+    medec_test:
+      file: "medec/medec-test.json"
+      loader: "medecjson"
+    medrect_ja_step3_screened:
+      file: "medrect/medrect-ja-step3-deduplicated.json"
+      loader: "medecjson"
+
+# Templates auto-discovered by ComponentFactory
+# Available templates: detailed_explanation_ja, with_examples_ja
+
+# Metrics configuration for quality screening
+metrics:
+  screening_judge:
+    class: "screeningmetrics"
+    parser: "screeningjudge"
+
+# All defaults grouped together
+defaults:
+  template: "with_examples_ja"
+  dataset: "medrect_ja_step3_screened"  # Default to main dataset
+  metrics:
+    - "screening_judge"
