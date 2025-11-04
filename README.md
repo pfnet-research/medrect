@@ -1,6 +1,6 @@
 # MedRECT: A Medical Reasoning Benchmark for Error Correction in Clinical Texts
 
-[![arXiv](https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b.svg)](https://arxiv.org/abs/XXXX.XXXXX)
+[![arXiv](https://img.shields.io/badge/arXiv-2511.00421-b31b1b.svg)](https://arxiv.org/abs/2511.00421)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 This repository contains the official implementation and datasets for **MedRECT**, the first cross-lingual benchmark (Japanese/English) for medical error detection and correction in clinical texts.
@@ -151,7 +151,7 @@ If you use MedRECT in your research, please cite our paper:
 @article{iwase2025medrect,
   title={MedRECT: A Medical Reasoning Benchmark for Error Correction in Clinical Texts},
   author={Iwase, Naoto and Okuyama, Hiroki and Iwasawa, Junichiro},
-  journal={arXiv preprint arXiv:XXXX.XXXXX},
+  journal={arXiv preprint arXiv:2511.00421},
   year={2025}
 }
 ```
