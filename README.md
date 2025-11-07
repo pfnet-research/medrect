@@ -1,6 +1,7 @@
 # MedRECT: A Medical Reasoning Benchmark for Error Correction in Clinical Texts
 
 [![arXiv](https://img.shields.io/badge/arXiv-2511.00421-b31b1b.svg)](https://arxiv.org/abs/2511.00421)
+[![Zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.17550933.svg)](https://doi.org/10.5281/zenodo.17550933)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 This repository contains the official implementation and datasets for **MedRECT**, the first cross-lingual benchmark (Japanese/English) for medical error detection and correction in clinical texts.
@@ -104,6 +105,27 @@ uv run viewer
 ```
 
 The viewer displays evaluation results (`*raw_responses.json`, `*predictions.json`) from the `results/` directory. Run the evaluation commands above to generate results, which will be automatically available in the viewer.
+
+### Reproducing Paper Results
+
+To reproduce the evaluation results from our paper, download the complete evaluation outputs from Zenodo ([DOI: 10.5281/zenodo.17550933](https://doi.org/10.5281/zenodo.17550933)):
+
+```bash
+# Download and extract results (~750MB uncompressed, 116MB compressed)
+wget https://zenodo.org/records/17550933/files/results.zip
+unzip results.zip
+
+# Launch the viewer to explore the results
+uv run viewer
+```
+
+The archive includes evaluation results for 9 contemporary LLMs on MedRECT-ja, MedRECT-en, and MEDEC benchmarks:
+
+- **Reasoning Models**: GPT-5, o3, Claude Sonnet 4, DeepSeek-R1-0528, gpt-oss-120b, gpt-oss-20b, Qwen3-32B (think mode)
+- **Non-reasoning Models**: GPT-4.1, DeepSeek-V3-0324, Qwen3-32B (no-think mode)
+- **Fine-tuned Model**: Preferred-MedRECT-32B
+
+See `results/README.md` in the archive for detailed dataset and file structure information.
 
 ## Configuration
 
