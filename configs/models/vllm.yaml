@@ -140,5 +140,5 @@ preferred-medrect-32b:
   client:
     model: "pfnet/Preferred-MedRECT-32B"
     <<: *default_client
-  sampling: *instruct_sampling
-  <<: *reasoning_disabled
+  sampling: *reasoning_sampling
+  <<: *reasoning_enabled
